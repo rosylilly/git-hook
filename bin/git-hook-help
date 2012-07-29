@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+case "$1" in
+  "")
+    echo "usage: git hook <command> [args]
+
+Some usefull git-hook commands are:
+    install    install some git-hook
+    uninstall  uninstall some git-hook
+    list       list git-hooks
+
+See 'git hook help <command>' for information on a specific command.
+For full documentation, see https://github.com/rosylilly/git-hook#readme"
+    ;;
+  "install" )
+    echo "usage: git hook install <timing> <hook>
+
+timings is in the 'man githooks'.
+
+hook is one of these:
+  URL  example: https://raw.github.com/gist/1387542
+  Gist example: gist:1387542
+  File example: ~/gist/1387542"
+    ;;
+  "uninstall" )
+    echo "usage: git hook uninstall <timing> <hook>
+
+timings is in the 'man githooks'.
+
+hook is one of 'git hook ls <timing>'."
+    ;;
+  "list" )
+    echo "usage: git hook list <timing> [<timing> [<timing> ... ]]
+
+timings is in the 'man githooks'"
+    ;;
+esac
