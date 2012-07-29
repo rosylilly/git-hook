@@ -8,6 +8,12 @@ case "$command" in
     echo "git-hook 0.0.1"
     ;;
   * )
+    # alias
+    case "$command" in
+      ls )
+        command="list"
+        ;;
+    esac
     command_path="$(command -v "git-hook-$command" || true)"
     if [ -z "$command_path" ]; then
       echo "git-hook no such command \`$command'" >&2

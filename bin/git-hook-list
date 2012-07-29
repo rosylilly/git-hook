@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+timings="$*"
+
+ALLOWED_TIMING=`cat <<TM
+applypatch-msg
+pre-applypatch
+post-applypatch
+pre-commit
+prepare-commit-msg
+commit-msg
+post-commit
+pre-rebase
+post-checkout
+post-merge
+pre-receive
+update
+post-update
+pre-auto-gc
+post-rewrite
+TM
+`
+
+cd "./$(git rev-parse --show-cdup)"
+
+if [ -z "$timings" ]; then
+  timings="$ALLOWED_TIMING"
+fi
+
+for timing in $timings
+do
+  hooks="$(git rev-parse --git-dir)/hooks/installed/$timing"
+  echo "$timing:"
+  [ -d "$hooks" ] && ls "$hooks"
+  echo
+done
