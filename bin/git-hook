@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -e
+
+command="$1"
+case "$command" in
+  "-v" | "--version" )
+    echo "git-hook 0.0.1"
+    ;;
+  * )
+    command_path="$(command -v "git-hook-$command" || true)"
+    if [ -z "$command_path" ]; then
+      echo "git-hook no such command \`$command'" >&2
+      exit 1
+    fi
+    ;;
+esac
