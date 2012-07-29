@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+timing=$1
+hook=$2
+
+ALLOWED_TIMING=`cat <<TM
+applypatch-msg
+pre-applypatch
+post-applypatch
+pre-commit
+prepare-commit-msg
+commit-msg
+post-commit
+pre-rebase
+post-checkout
+post-merge
+pre-receive
+update
+post-update
+pre-auto-gc
+post-rewrite
+TM
+`
+
+echo "$ALLOWED_TIMING" | grep -sq "^$timing$"
+if [ $? -eq 1 ]; then
+  echo "\`$timing' is unknown timing" >&2
+  exit 1
+fi
+
+cwd="$(pwd)"
+
+cd "./$(git rev-parse --show-cdup)"
+cd "$(git rev-parse --git-dir)/hooks/installed/$timing"
+
+if [ -x "$hook" ]; then
+  rm "$hook"
+  echo "\`$hook' uninstalled"
+else
+  echo "\`$hook' is not found" >&2
+  exit 1
+fi

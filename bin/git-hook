@@ -13,6 +13,9 @@ case "$command" in
       ls )
         command="list"
         ;;
+      rm )
+        command="uninstall"
+        ;;
     esac
     command_path="$(command -v "git-hook-$command" || true)"
     if [ -z "$command_path" ]; then
