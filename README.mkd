@@ -1,1 +1,54 @@
-# git-hook
+# Lightweight Git Hook Management Tool: git-hook
+
+git-hook is very eazy git's hook management tool.
+
+## Installation
+
+    $ cd
+    $ git clone git://github.com/rosylilly/git-hook.git .git-hook
+    $ echo 'export PATH="$HOME/.git-hook/bin:$PATH"' >> ~/.bash_profile
+
+if you're using zsh: `~/.bash_profile` replace `~/.zshenv`
+
+### Upgrading
+
+    $ cd ~/.git-hook
+    $ git pull
+
+## Usage
+
+install `pre-commit` hook:
+
+    $ git hook install pre-commit gist:0000
+
+uninstall `pre-commit` hook:
+
+    $ git hook ls pre-commit
+    gist-0000
+    $ git hook uninstall pre-commit gist-0000
+
+more usage:
+
+    $ git hook install pre-commit http://raw.github.com/gist/0000
+    $ git hook install post-commit ~/my-git-hooks/post-commit
+
+## Development
+
+git-hook source code is hosted on [Github](https://github.com/rosylilly/git-hook).
+
+Please feel free to submit pull requests and file bugs on the [issue tracker](https://github.com/rosylilly/git-hook/issues).
+
+### History
+
+#### 0.0.1 (2012-07-30)
+- first release
+
+### License
+
+Copyright (c) 2012 Sho Kusano
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
