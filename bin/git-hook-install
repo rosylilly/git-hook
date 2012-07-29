@@ -1,0 +1,92 @@
+#!/usr/bin/env bash
+
+timing=$1
+hook=$2
+
+if [ "$3" = "--force" ] || [ "$3" = "-f" ]; then
+  force="true"
+fi
+
+ALLOWED_TIMING=`cat <<TM
+applypatch-msg
+pre-applypatch
+post-applypatch
+pre-commit
+prepare-commit-msg
+commit-msg
+post-commit
+pre-rebase
+post-checkout
+post-merge
+pre-receive
+update
+post-update
+pre-auto-gc
+post-rewrite
+TM
+`
+
+echo "$ALLOWED_TIMING" | grep -sq "^$timing$"
+if [ $? -eq 1 ]; then
+  echo "\`$timing' is unknown timing" >&2
+  exit 1
+fi
+
+template="$(dirname "$0")/../hook"
+
+cwd="$(pwd)"
+
+cd "./$(git rev-parse --show-cdup)"
+cd "$(git rev-parse --git-dir)/hooks"
+
+hookdiff="$(diff "$template" "$timing" 2>&1)"
+mkdir -p "installed/$timing"
+if [ -n "$hookdiff" ]; then
+  if [ -x "$timing" ]; then
+    mv "$timing" "installed/$timing/origin"
+  fi
+  cp "$template" "$timing"
+  chmod +x "$timing"
+fi
+
+command=""
+
+case "$hook" in
+  http://* | https://* ) # via URL
+    command="curl"
+    hook_name="$(basename "$hook")"
+    url="$hook"
+    ;;
+  gist:* ) # via gist
+    command="curl"
+    gist=${hook:5}
+    hook_name="gist-$gist"
+    url="https://raw.github.com/gist/$gist"
+    ;;
+  * ) # other
+    if [ -f "$hook" ]; then # via file
+      command="cp"
+      hook_name="$(basename "$hook")"
+    fi
+    ;;
+esac
+
+install_path="installed/$timing/$hook_name"
+
+if [ -f "$install_path" ] && [ -z "$force" ]; then
+  echo "\`$hook_name' is installed. force install with --force option" >&2
+  exit 1
+fi
+
+case "$command" in
+  curl )
+    curl -o "$install_path" "$url"
+    ;;
+  cp )
+    cp "$hook" "$install_path"
+    ;;
+esac
+
+chmod +x "$install_path"
+
+cd "$cwd"

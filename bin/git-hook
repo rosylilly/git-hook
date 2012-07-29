@@ -4,7 +4,7 @@ set -e
 
 command="$1"
 case "$command" in
-  "-v" | "--version" )
+  "" | "-v" | "--version" )
     echo "git-hook 0.0.1"
     ;;
   * )
@@ -13,5 +13,8 @@ case "$command" in
       echo "git-hook no such command \`$command'" >&2
       exit 1
     fi
+
+    shift 1
+    exec "$command_path" "$@"
     ;;
 esac

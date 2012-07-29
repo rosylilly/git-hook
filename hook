@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+timing="$(basename "$0")"
+hooks="$(git rev-parse --git-dir)/hooks/installed/$timing"
+cwd="$(pwd)"
+
+for hook in "$(ls $hooks)"
+do
+  cd "$cwd"
+  exec "$hooks/$hook" "$@"
+  [ "$?" -ne 0 ] && exit 1
+done
