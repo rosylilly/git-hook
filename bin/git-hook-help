@@ -4,34 +4,38 @@ case "$1" in
   "")
     echo "usage: git hook <command> [args]
 
-Some usefull git-hook commands are:
-    install    install some git-hook
-    uninstall  uninstall some git-hook
+Some useful git-hook commands are:
+    install    install git-hook
+    uninstall  uninstall git-hook
     list       list git-hooks
 
-See 'git hook help <command>' for information on a specific command.
-For full documentation, see https://github.com/rosylilly/git-hook#readme"
+See 'git hook help <command>' for information for a specific command.
+For details, see https://github.com/rosylilly/git-hook#readme"
     ;;
   "install" )
-    echo "usage: git hook install <timing> <hook>
+    echo "usage: git hook install <event> <hook>
 
-timings is in the 'man githooks'.
+Define to kick <hook> when <event> happened. See 'man githooks' for all <event>s defined.
 
-hook is one of these:
-  URL  example: https://raw.github.com/gist/1387542
+You can specify <hook> as the following:
+  URL example: https://raw.github.com/gist/1387542
   Gist example: gist:1387542
   File example: ~/gist/1387542"
     ;;
   "uninstall" )
-    echo "usage: git hook uninstall <timing> <hook>
+    echo "usage: git hook uninstall <event> <hook>
 
-timings is in the 'man githooks'.
+Uninstall one installed hook.
 
-hook is one of 'git hook ls <timing>'."
+You can know what to specify for <hook> by seeing 'git hook list <event>'
+
+See 'man githooks' for all <event>s defined."
     ;;
   "list" )
-    echo "usage: git hook list <timing> [<timing> [<timing> ... ]]
+    echo "usage: git hook list <event> [<event> [<event> ... ]]
 
-timings is in the 'man githooks'"
+List up all hooks installed for <event>.
+
+See 'man githooks' for all <event>s defined.
     ;;
 esac
