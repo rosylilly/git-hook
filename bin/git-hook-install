@@ -89,4 +89,6 @@ esac
 
 chmod +x "$install_path"
 
+echo "\`$hook_name' installed"
+
 cd "$cwd"
