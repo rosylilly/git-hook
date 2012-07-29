@@ -5,8 +5,8 @@ case "$1" in
     echo "usage: git hook <command> [args]
 
 Some useful git-hook commands are:
-    install    install one of git-hooks
-    uninstall  uninstall one of git-hooks
+    install    install git-hook
+    uninstall  uninstall git-hook
     list       list git-hooks
 
 See 'git hook help <command>' for information for a specific command.
