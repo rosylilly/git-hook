@@ -36,6 +36,6 @@ See 'man githooks' for all <event>s defined."
 
 List up all hooks installed for <event>.
 
-See 'man githooks' for all <event>s defined.
+See 'man githooks' for all <event>s defined."
     ;;
 esac
