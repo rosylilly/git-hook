@@ -7,6 +7,6 @@ cwd="$(pwd)"
 for hook in "$(ls $hooks)"
 do
   cd "$cwd"
-  exec "$hooks/$hook" "$@"
+  ./$hooks/$hook "$@"
   [ "$?" -ne 0 ] && exit 1
 done
