@@ -4,7 +4,11 @@ timing="$(basename "$0")"
 hooks="$(git rev-parse --git-dir)/hooks/installed/$timing"
 cwd="$(pwd)"
 
-for hook in "$(ls $hooks)"
+if [ -z "$hooks" ]; then
+  exit 0
+fi
+
+for hook in `ls $hooks`
 do
   cd "$cwd"
   ./$hooks/$hook "$@"

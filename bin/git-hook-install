@@ -36,6 +36,10 @@ template="$(dirname "$0")/../hook"
 
 cwd="$(pwd)"
 
+if [ -f "$hook" ]; then
+  hook="$(cd $(dirname "$hook") && pwd)/$(basename $hook)"
+fi
+
 cd "./$(git rev-parse --show-cdup)"
 cd "$(git rev-parse --git-dir)/hooks"
 
@@ -45,7 +49,7 @@ if [ -n "$hookdiff" ]; then
   if [ -x "$timing" ]; then
     mv "$timing" "installed/$timing/origin"
   fi
-  cp "$template" "$timing"
+  ln -s "$template" "$timing"
   chmod +x "$timing"
 fi
 
