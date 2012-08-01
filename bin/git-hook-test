@@ -1,1 +1,7 @@
 #!/usr/bin/env bash
+
+timing=$1
+shift
+
+cd "./$(git rev-parse --show-cdup)"
+exec "$(git rev-parse --git-dir)/hooks/$timing" "$@"
