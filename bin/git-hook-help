@@ -8,6 +8,7 @@ Some useful git-hook commands are:
     install    install git-hook
     uninstall  uninstall git-hook
     list       list git-hooks
+    test       test git-hook
 
 See 'git hook help <command>' for information for a specific command.
 For details, see https://github.com/rosylilly/git-hook#readme"
@@ -38,5 +39,10 @@ See 'man githooks' for all <event>s defined."
 List up all hooks installed for <event>.
 
 See 'man githooks' for all <event>s defined."
+    ;;
+  "test" )
+    echo "usage: git hook test <event> [<arg> [<arg> ...]]
+
+Kick <event>'s hooks with <arg>s. See 'man githooks' for all <event>s defined."
     ;;
 esac
