@@ -1,11 +1,26 @@
 #!/usr/bin/env bash
 
-timing=$1
-hook=$2
+ARGS=()
+while [ -n "$1" ];
+do
+  case $1 in
+    --force )
+      force=true
+      shift
+      ;;
+    * )
+      ARGS=("${ARGS[@]}" "$1")
+      shift
+      ;;
+  esac
+done
 
-if [ "$3" = "--force" ] || [ "$3" = "-f" ]; then
-  force="true"
-fi
+timing="${ARGS[0]}"
+shift
+hook="${ARGS[1]}"
+shift
+preset_hook_name="${ARGS[2]}"
+shift
 
 ALLOWED_TIMING=`cat <<TM
 applypatch-msg
@@ -74,6 +89,10 @@ case "$hook" in
     fi
     ;;
 esac
+
+if [ -n "$preset_hook_name" ]; then
+  hook_name="$preset_hook_name"
+fi
 
 install_path="installed/$timing/$hook_name"
 
