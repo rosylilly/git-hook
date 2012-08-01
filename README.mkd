@@ -40,6 +40,10 @@ Please feel free to submit pull requests and file bugs on the [issue tracker](ht
 
 ### History
 
+#### 1.0.0 (2012-08-01)
+- implemented ``git hook test``
+- implemented ``git hook install`` with name option
+
 #### 0.0.1 (2012-07-30)
 - first release
 
