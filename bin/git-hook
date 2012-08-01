@@ -5,7 +5,7 @@ set -e
 command="$1"
 case "$command" in
   "" | "-v" | "--version" )
-    echo "git-hook 0.0.1"
+    echo "git-hook 1.0.0"
     ;;
   * )
     # alias
