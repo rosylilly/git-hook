@@ -13,9 +13,10 @@ See 'git hook help <command>' for information for a specific command.
 For details, see https://github.com/rosylilly/git-hook#readme"
     ;;
   "install" )
-    echo "usage: git hook install <event> <hook>
+    echo "usage: git hook install <event> <hook> [<name>]
 
 Define to kick <hook> when <event> happened. See 'man githooks' for all <event>s defined.
+When defined <name> to intall <hook>' name is <name>.
 
 You can specify <hook> as the following:
   URL example: https://raw.github.com/gist/1387542
