@@ -14,3 +14,5 @@ do
   ./$hooks/$hook "$@"
   [ "$?" -ne 0 ] && exit 1
 done
+
+exit 0
