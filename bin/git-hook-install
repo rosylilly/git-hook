@@ -8,6 +8,10 @@ do
       force=true
       shift
       ;;
+    --link )
+      link=true
+      shift
+      ;;
     * )
       ARGS=("${ARGS[@]}" "$1")
       shift
@@ -68,23 +72,21 @@ if [ -n "$hookdiff" ]; then
   chmod +x "$timing"
 fi
 
-command=""
-
 case "$hook" in
   http://* | https://* ) # via URL
-    command="curl"
+    type="url"
     hook_name="$(basename "$hook")"
     url="$hook"
     ;;
   gist:* ) # via gist
-    command="curl"
+    type="gist"
     gist=${hook:5}
     hook_name="gist-$gist"
     url="https://raw.github.com/gist/$gist"
     ;;
   * ) # other
     if [ -f "$hook" ]; then # via file
-      command="cp"
+      type="file"
       hook_name="$(basename "$hook")"
     fi
     ;;
@@ -101,12 +103,16 @@ if [ -f "$install_path" ] && [ -z "$force" ]; then
   exit 1
 fi
 
-case "$command" in
-  curl )
+case "$type" in
+  url | gist )
     curl -o "$install_path" "$url"
     ;;
-  cp )
-    cp "$hook" "$install_path"
+  file )
+    if [[ -n "$link" ]]; then
+      ln -s "$hook" "$install_path"
+    else
+      cp "$hook" "$install_path"
+    fi
     ;;
 esac
 

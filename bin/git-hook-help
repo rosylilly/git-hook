@@ -14,7 +14,7 @@ See 'git hook help <command>' for information for a specific command.
 For details, see https://github.com/rosylilly/git-hook#readme"
     ;;
   "install" )
-    echo "usage: git hook install <event> <hook> [<name>]
+    echo "usage: git hook install [--force] [--link] <event> <hook> [<name>]
 
 Define to kick <hook> when <event> happened. See 'man githooks' for all <event>s defined.
 When defined <name> to intall <hook>' name is <name>.
@@ -22,7 +22,11 @@ When defined <name> to intall <hook>' name is <name>.
 You can specify <hook> as the following:
   URL example: https://raw.github.com/gist/1387542
   Gist example: gist:1387542
-  File example: ~/gist/1387542"
+  File example: ~/gist/1387542
+
+  --force                    Override an existing destination file.
+  --link                     Create a symbolic link instead of copy. This option
+                               make sense only if a file is specified as hook."
     ;;
   "uninstall" )
     echo "usage: git hook uninstall <event> <hook>
