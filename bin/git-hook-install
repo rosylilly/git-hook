@@ -82,7 +82,7 @@ case "$hook" in
     type="gist"
     gist=${hook:5}
     hook_name="gist-$gist"
-    url="https://raw.github.com/gist/$gist"
+    url="https://gist.github.com/raw/$gist"
     ;;
   * ) # other
     if [ -f "$hook" ]; then # via file
@@ -105,7 +105,7 @@ fi
 
 case "$type" in
   url | gist )
-    curl -o "$install_path" "$url"
+    curl -L -o "$install_path" "$url"
     ;;
   file )
     if [[ -n "$link" ]]; then
